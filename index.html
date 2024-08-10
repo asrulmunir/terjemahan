@@ -245,26 +245,34 @@ ${userInputs}
 </user inputs>
 
 <scoring template>
-Terjemahan A:
-- Ketepatan Maksud Asal: [1-5]
-- Kelancaran dalam Bahasa Sasaran: [1-5]
-- Keserasian Budaya dan Konteks: [1-5]
-- Persembahan: [1-5]
-- **Skor Keseluruhan**: [Jumlah skor]
+<h1>Template Penilaian Terjemahan</h1>
 
-Terjemahan B:
-- Ketepatan Maksud Asal: [1-5]
-- Kelancaran dalam Bahasa Sasaran: [1-5]
-- Keserasian Budaya dan Konteks: [1-5]
-- Persembahan: [1-5]
-- **Skor Keseluruhan**: [Jumlah skor]
+    <h2>Terjemahan A:</h2>
+    <ul>
+        <li>Ketepatan Maksud Asal: [1-5]</li>
+        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
+        <li>Keserasian Budaya dan Konteks: [1-5]</li>
+        <li>Persembahan: [1-5]</li>
+        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
+    </ul>
 
-Terjemahan C:
-- Ketepatan Maksud Asal: [1-5]
-- Kelancaran dalam Bahasa Sasaran: [1-5]
-- Keserasian Budaya dan Konteks: [1-5]
-- Persembahan: [1-5]
-- **Skor Keseluruhan**: [Jumlah skor]
+    <h2>Terjemahan B:</h2>
+    <ul>
+        <li>Ketepatan Maksud Asal: [1-5]</li>
+        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
+        <li>Keserasian Budaya dan Konteks: [1-5]</li>
+        <li>Persembahan: [1-5]</li>
+        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
+    </ul>
+
+    <h2>Terjemahan C:</h2>
+    <ul>
+        <li>Ketepatan Maksud Asal: [1-5]</li>
+        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
+        <li>Keserasian Budaya dan Konteks: [1-5]</li>
+        <li>Persembahan: [1-5]</li>
+        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
+    </ul>
 </scoring template>`;
             try {
                 const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
