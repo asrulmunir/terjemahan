@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Evaluation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Penilaian Terjemahan</h1>
+        
+        <label for="model-select">Select Open Source LLM Model:</label>
+        <select id="model-select">
+            <option value="llama-3.7-70b-versatile">Llama-3.7-70b-versatile</option>
+            <!-- Add other models here -->
+        </select>
+
+        <h2>1. Teks Asal</h2>
+        <textarea id="original-text" rows="6" readonly>Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation...</textarea>
+
+        <h2>2. Terjemahan A</h2>
+        <textarea id="translation-a" rows="6" readonly>Sepanjang tiga tahun yang lalu, teknologi AI telah merevolusikan pelbagai industri...</textarea>
+
+        <h2>3. Terjemahan B</h2>
+        <textarea id="translation-b" rows="6" readonly>Dalam tiga tahun kebelakangan ini, teknologi AI telah membawa perubahan besar...</textarea>
+
+        <h2>4. Terjemahan C</h2>
+        <textarea id="translation-c" rows="6" readonly>Selama tiga tahun terakhir, teknologi AI telah mengubah secara drastis berbagai industri...</textarea>
+
+        <button id="generate-btn">Generate?</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("generate-btn").addEventListener("click", function() {
+            document.getElementById("result").innerText = "Translation generated! (This is a placeholder result.)";
+        });
+    </script>
+</body>
+</html>
