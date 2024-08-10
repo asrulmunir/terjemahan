@@ -210,21 +210,24 @@ Sampaikan kesimpulan dan hasil akhir dalam Malaysian Malay.
             );
 
                         // Here you would send the fullPrompt to your LLM API using fetch or any other method
-            fetch('YOUR_LLM_API_ENDPOINT', {
+            fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    // Add any necessary authentication headers
+                    'Authorization': `Bearer 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`,
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     prompt: fullPrompt,
-                    // Add any other required parameters for your LLM API
+                    'model': 'llama-3.1-70b-versatile',
+                    'messages': [{'role': 'user', 'content': prompt}],
+                    'max_tokens': 1000,
+                    'temperature': 1
                 })
             })
             .then(response => response.json())
             .then(data => {
                 // Assuming the API returns the result in a field called 'output'
-                document.getElementById("result").innerText = data.output;
+                document.getElementById("result").innerText = data.message.content;
             })
             .catch(error => {
                 console.error('Error:', error);
