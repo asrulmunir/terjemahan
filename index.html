@@ -13,15 +13,20 @@
         }
 
         .container {
-            width: 60%;
+            width: 80%;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             color: #333;
+        }
+
+        p, ul, ol {
+            color: #555;
+            line-height: 1.6;
         }
 
         textarea {
@@ -51,17 +56,15 @@
             font-size: 1.2em;
             color: #333;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Penilaian Terjemahan</h1>
-        
-        <label for="model-select">Select Open Source LLM Model:</label>
-        <select id="model-select">
-            <option value="llama-3.7-70b-versatile">Llama-3.7-70b-versatile</option>
-            <!-- Add other models here -->
-        </select>
 
         <h2>1. Teks Asal</h2>
         <textarea id="original-text" rows="6" readonly>Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation...</textarea>
@@ -78,11 +81,155 @@
         <button id="generate-btn">Generate?</button>
 
         <div id="result"></div>
+
+        <!-- Hidden prompt -->
+        <textarea id="hidden-prompt" class="hidden">
+<objective>
+Evaluate three translation outputs against the original text based on the considerations listed below. Assign a score from 1 to 5 for each translation, with 5 being the best. Then, select the best translation overall and identify the issues present in each translation.
+
+Considerations ordered from most important to least important:
+
+* Faithfulness to Original Meaning
+* Fluency in Target Language
+* Cultural and Contextual Appropriateness
+* Presentation (e.g., grammar, syntax, punctuation)
+
+Scoring Criteria:
+
+* 5: Excellent—The translation fully meets the criterion with no significant issues.
+* 4: Good—The translation meets the criterion well, with only minor issues.
+* 3: Adequate—The translation meets the criterion adequately, with some noticeable issues.
+* 2: Poor—The translation has significant issues and only partially meets the criterion.
+* 1: Very Poor—The translation fails to meet the criterion and has major issues.
+
+Notes:
+
+* When evaluating the translations, apply the considerations in their order of importance to determine the best one.
+* It is possible that none of the translations are perfect. However, you must still choose the best overall and assign a score to each.
+</objective>
+
+<steps>
+Step 1: Fahami Teks Asal
+* Mula dengan membaca teks asal yang disediakan dengan teliti.
+* Ambil perhatian terhadap perkara-perkara utama, nada, dan nuansa dalam teks asal, kerana ini akan membimbing penilaian anda terhadap terjemahan-terjemahan tersebut.
+
+Step 2: Kenali Terjemahan
+* Anda akan menerima tiga terjemahan yang berbeza dari teks asal.
+* Baca setiap terjemahan dengan teliti. Pertimbangkan untuk mencatat atau menggariskan bahagian-bahagian yang kelihatan paling tepat atau bermasalah dalam menangkap inti pati teks asal.
+
+Step 3: Nilai dan Beri Skor kepada Setiap Terjemahan
+* Nilai setiap terjemahan berdasarkan kriteria berikut:
+  - **Ketepatan Maksud Asal**: Sejauh mana terjemahan tersebut menyampaikan maksud, nada, dan niat teks asal dengan tepat?
+  - **Kelancaran dalam Bahasa Sasaran**: Sejauh mana terjemahan tersebut dibaca dengan lancar dalam bahasa sasaran?
+  - **Kesesuaian Budaya dan Konteks**: Adakah terjemahan tersebut sesuai dengan norma budaya dan konteks sasaran?
+  - **Persembahan**: Pertimbangkan tatabahasa, sintaksis, tanda baca, dan kebolehbacaan keseluruhan.
+
+* Beri skor dari 1 hingga 5 untuk setiap kriteria, kemudian jumlahkan skor keseluruhan untuk setiap terjemahan.
+
+Step 4: Pilih Terjemahan Terbaik
+* Setelah menilai, pilih terjemahan dengan skor keseluruhan tertinggi. Jika dua atau lebih terjemahan mempunyai skor yang sama, pilih berdasarkan kriteria yang paling penting.
+
+Step 5: Berikan Justifikasi untuk Pemilihan Anda
+* Berikan penjelasan ringkas tentang mengapa anda memilih terjemahan tersebut.
+
+Step 6: Kenal pasti Isu bagi Setiap Terjemahan
+* Pilih HANYA dari kategori isu yang disenaraikan di bawah:
+
+** Ketepatan Maksud Asal
+** Kelancaran dalam Bahasa Sasaran
+** Keserasian Budaya dan Konteks
+** Persembahan (cth: tatabahasa, sintaksis, tanda baca)
+** Tiada
+</steps>
+
+<original text>
+Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation...
+</original text>
+
+<translation a>
+Sepanjang tiga tahun yang lalu, teknologi AI telah merevolusikan pelbagai industri...
+</translation a>
+
+<translation b>
+Dalam tiga tahun kebelakangan ini, teknologi AI telah membawa perubahan besar...
+</translation b>
+
+<translation c>
+Selama tiga tahun terakhir, teknologi AI telah mengubah secara drastis berbagai industri...
+</translation c>
+
+<scoring template>
+Terjemahan A:
+- Ketepatan Maksud Asal: [1-5]
+- Kelancaran dalam Bahasa Sasaran: [1-5]
+- Keserasian Budaya dan Konteks: [1-5]
+- Persembahan: [1-5]
+- **Skor Keseluruhan**: [Jumlah skor]
+
+Terjemahan B:
+- Ketepatan Maksud Asal: [1-5]
+- Kelancaran dalam Bahasa Sasaran: [1-5]
+- Keserasian Budaya dan Konteks: [1-5]
+- Persembahan: [1-5]
+- **Skor Keseluruhan**: [Jumlah skor]
+
+Terjemahan C:
+- Ketepatan Maksud Asal: [1-5]
+- Kelancaran dalam Bahasa Sasaran: [1-5]
+- Keserasian Budaya dan Konteks: [1-5]
+- Persembahan: [1-5]
+- **Skor Keseluruhan**: [Jumlah skor]
+</scoring template>
+
+<language preference>
+Sampaikan kesimpulan dan hasil akhir dalam Malaysian Malay.
+</language preference>
+        </textarea>
     </div>
 
     <script>
         document.getElementById("generate-btn").addEventListener("click", function() {
-            document.getElementById("result").innerText = "Translation generated! (This is a placeholder result.)";
+            const originalText = document.getElementById("original-text").value;
+            const translationA = document.getElementById("translation-a").value;
+            const translationB = document.getElementById("translation-b").value;
+            const translationC = document.getElementById("translation-c").value;
+            const prompt = document.getElementById("hidden-prompt").value;
+
+            const fullPrompt = prompt.replace(
+                /Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation.../,
+                originalText
+            ).replace(
+                /Sepanjang tiga tahun yang lalu, teknologi AI telah merevolusikan pelbagai industri.../,
+                translationA
+            ).replace(
+                /Dalam tiga tahun kebelakangan ini, teknologi AI telah membawa perubahan besar.../,
+                translationB
+            ).replace(
+                /Selama tiga tahun terakhir, teknologi AI telah mengubah secara drastis berbagai industri.../,
+                translationC
+            );
+
+                        // Here you would send the fullPrompt to your LLM API using fetch or any other method
+            fetch('YOUR_LLM_API_ENDPOINT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any necessary authentication headers
+                },
+                body: JSON.stringify({
+                    prompt: fullPrompt,
+                    // Add any other required parameters for your LLM API
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Assuming the API returns the result in a field called 'output'
+                document.getElementById("result").innerText = data.output;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("result").innerText = "An error occurred while generating the output.";
+            });
         });
     </script>
 </body>
