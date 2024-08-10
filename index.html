@@ -167,7 +167,12 @@
             }
 
             const selectedModel = document.getElementById('modelSelect').value;
-            const temp = document.getElementById('temp').value;
+            const temp = parseFloat(document.getElementById('temp').value);
+
+            if (isNaN(temp) || temp < 0 || temp > 1) {
+            alert('Sila masukkan nilai temperature antara 0.1 hingga 1.0.');
+            return;
+            }
 
             const sections = [
                 { id: 'teksAsal', prefix: 'Teks asal: ' },
