@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Form (Debug Version)</title>
+    <title>Survey Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,40 +27,9 @@
         #survey-container {
             margin-top: 20px;
         }
-        #debug-log {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-        }
     </style>
-    <!-- START Formbricks Surveys -->
-<script type="text/javascript">
-!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://survey.tapirapi.com/api/packages/website";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e),setTimeout(function(){window.formbricks.init({environmentId: "clzwxuf1g0014pqu4ix0w66fr",  apiHost: "https://survey.tapirapi.com"})},500)}();
-</script>
-<!-- END Formbricks Surveys -->
-</head>
-<body>
-    <div class="container">
-        <h1>Survey Form</h1>
-        <div id="survey-container">
-            <!-- The survey will be rendered here by Formbricks -->
-        </div>
-        <div id="debug-log">
-            <h3>Debug Log:</h3>
-            <pre id="log"></pre>
-        </div>
-    </div>
-
-    <!-- START Formbricks Surveys -->
+     <!-- START Formbricks Surveys -->
     <script type="text/javascript">
-        function log(message) {
-            console.log(message);
-            document.getElementById('log').textContent += message + '\n';
-        }
-
-        log('Starting Formbricks script load...');
-
         !(function () {
             var t = document.createElement("script");
             t.type = "text/javascript";
@@ -70,33 +39,22 @@
             e.parentNode.insertBefore(t, e);
 
             t.onload = function() {
-                log('Formbricks script loaded successfully.');
                 window.formbricks = window.formbricks || window.js;
-                if (window.formbricks) {
-                    log('window.formbricks object exists.');
-                    try {
-                        window.formbricks.init({
-                            environmentId: "clzwxuf1g0014pqu4ix0w66fr",
-                            apiHost: "https://survey.tapirapi.com",
-                        });
-                        log('Formbricks initialized successfully.');
-                    } catch (error) {
-                        log('Error initializing Formbricks: ' + error.message);
-                    }
-                } else {
-                    log('Error: window.formbricks object not found.');
-                }
-            };
-
-            t.onerror = function() {
-                log('Error loading Formbricks script.');
+                window.formbricks.init({
+                    environmentId: "clzwxuf1g0014pqu4ix0w66fr",
+                    apiHost: "https://survey.tapirapi.com",
+                });
             };
         })();
-
-        window.onerror = function(message, source, lineno, colno, error) {
-            log('Global error: ' + message);
-        };
     </script>
     <!-- END Formbricks Surveys -->
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <div id="survey-container">
+            <!-- The survey will be rendered here by Formbricks -->
+        </div>
+    </div>
 </body>
 </html>
