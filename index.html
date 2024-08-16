@@ -1,357 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penilai Terjemahan - AI</title>
+    <title>Embedded iframe</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f3f5;
+        .container {
+            position: relative;
+            height: 80dvh;
+            overflow: auto;
         }
-        h1, h2 {
-            color: #ff6b6b;
-            text-align: center;
-        }
-        .section {
-            background-color: #ffffff;
-            border: none;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .section:hover {
-            transform: translateY(-5px);
-        }
-        .input-area {
-            margin-top: 15px;
-        }
-        textarea {
+
+        iframe {
+            position: absolute;
+            left: 0;
+            top: 0;
             width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-            border: 2px solid #4ecdc4;
-            border-radius: 10px;
-            padding: 10px;
-            font-family: 'Poppins', sans-serif;
-            resize: vertical;
-        }
-        button {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            display: block;
-            margin: 20px auto;
-        }
-        button:hover {
-            background-color: #ff8787;
-        }
-        #finalStory {
-            background-color: #4ecdc4;
-            border: none;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            color: white;
-        }
-        .section:nth-child(odd) {
-            background-color: #fffbeb;
-        }
-        .section:nth-child(even) {
-            background-color: #e8f3ff;
-        }
-        .emoji {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-        #apiKeyInput, #modelSelect {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #4ecdc4;
-            border-radius: 10px;
-            font-family: 'Poppins', sans-serif;
-        }
-        #loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
+            height: 100%;
+            border: 0;
         }
     </style>
-</head>
-<body>
-    <h1>🖋️ Penilai Terjemahan - AI 🖋️</h1>
-    
-    <div class="section">
-        <h2>Masukkan <a href="https://console.groq.com" target="_blank">Groq API Key</a> Anda</h2>
-        <input type="password" id="apiKeyInput" placeholder="Masukkan Groq API Key Anda" value="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">
-    </div>
-
-    <div class="section">
-    <h2>Pilih Model LLM & Set Temperature</h2>
-    <div class="input-area" style="display: flex; gap: 15px;">
-        <select id="modelSelect" style="flex: 2;">
-            <option value="llama-3.1-8b-instant">1. llama-3.1-8b-instant</option>
-            <option value="llama-3.1-70b-versatile">2. llama-3.1-70b-versatile</option>
-            <option value="llama3-8b-8192">3. llama3-8b-8192</option>
-            <option value="llama3-70b-8192">4. llama3-70b-8192</option>
-            <option value="mixtral-8x7b-32768">5. mixtral-8x7b-32768</option>
-        </select>
-        <input type="number" id="temp" placeholder="Temperature 0.1 - 1.0" min="0" max="1" style="flex: 1.5; padding: 10px; border: 2px solid #4ecdc4; border-radius: 10px;" value="0.2">
-    </div>
-</div>
-
-    <div class="section">
-        <h2><span class="emoji">👤</span>1. Teks Asal</h2>
-        <div class="input-area">
-            <textarea id="teksAsal" placeholder="Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation...">
-                Over the past three years, AI technologies have revolutionized various industries, from healthcare to transportation. In 2021, machine learning models became increasingly sophisticated, enabling faster and more accurate medical diagnoses. By 2022, autonomous vehicles began to be tested on public roads, showcasing the potential for safer and more efficient transportation systems. In 2023, generative AI models like GPT-4 emerged, capable of creating human-like text, images, and even music. These advancements have sparked debates about the ethical implications of AI, as society grapples with balancing innovation and responsibility.
-            </textarea>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2><span class="emoji">💡</span>2. Terjemahan A</h2>
-        <div class="input-area">
-            <textarea id="terjemahanA" placeholder="Sepanjang tiga tahun yang lalu, teknologi AI telah merevolusikan pelbagai industri...">
-                Sepanjang tiga tahun yang lalu, teknologi AI telah merevolusikan pelbagai industri, daripada penjagaan kesihatan hingga pengangkutan. Pada tahun 2021, model pembelajaran mesin menjadi semakin canggih, membolehkan diagnosis perubatan yang lebih pantas dan tepat. Menjelang tahun 2022, kenderaan autonomi mula diuji di jalan raya awam, mempamerkan potensi untuk sistem pengangkutan yang lebih selamat dan cekap. Pada tahun 2023, model AI generatif seperti GPT-4 muncul, yang mampu menghasilkan teks, imej, dan malah muzik seperti manusia. Kemajuan ini telah mencetuskan perdebatan tentang implikasi etika AI, ketika masyarakat berusaha untuk mengimbangi inovasi dan tanggungjawab.
-            </textarea>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2><span class="emoji">💡</span>3. Terjemahan B</h2>
-        <div class="input-area">
-            <textarea id="terjemahanB" placeholder="Dalam tiga tahun kebelakangan ini, teknologi AI telah membawa perubahan besar...">
-                Dalam tiga tahun kebelakangan ini, teknologi AI telah membawa perubahan besar dalam pelbagai industri, termasuk kesihatan dan pengangkutan. Pada tahun 2021, model pembelajaran mesin menjadi lebih maju, membolehkan diagnosis perubatan dilakukan dengan lebih pantas dan tepat. Pada tahun 2022, kenderaan autonomi mula diuji di jalan raya awam, menunjukkan potensi untuk sistem pengangkutan yang lebih selamat dan efisien. Pada tahun 2023, model AI generatif seperti GPT-4 muncul, yang boleh mencipta teks, imej, dan muzik yang menyerupai hasil karya manusia. Kemajuan ini telah mencetuskan perbincangan mengenai implikasi etika AI, dengan masyarakat cuba menyeimbangkan antara inovasi dan tanggungjawab.
-            </textarea>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2><span class="emoji">💡</span>4. Terjemahan C</h2>
-        <div class="input-area">
-            <textarea id="terjemahanC" placeholder="Selama tiga tahun terakhir, teknologi AI telah mengubah secara drastis berbagai industri...">
-                Teknologi AI telah membawa perubahan besar dalam pelbagai sektor sejak tiga tahun yang lalu, termasuk dalam penjagaan kesihatan dan pengangkutan. Pada tahun 2021, model pembelajaran mesin semakin berkembang, membolehkan diagnosis perubatan dilakukan dengan lebih pantas dan tepat. Menjelang tahun 2022, kenderaan tanpa pemandu mula diuji di jalan raya, memperlihatkan potensi untuk sistem pengangkutan yang lebih selamat dan efisien. Pada tahun 2023, model AI generatif seperti GPT-4 diperkenalkan, mampu mencipta teks, imej, dan muzik yang hampir menyerupai ciptaan manusia. Perkembangan ini telah menimbulkan persoalan etika dalam AI, dengan masyarakat berusaha mencari keseimbangan antara inovasi dan tanggungjawab.
-            </textarea>
-        </div>
-    </div>
-
-    <button onclick="generateAIStory()">✨ Buat Penilaian Terjemahan ✨</button>
-
-    <div id="loading">Sedang menjana penilaian... Sila tunggu sebentar.</div>
-
-    <div id="finalStory"></div>
-
-    <script>
-        async function generateAIStory() {
-            const apiKey = document.getElementById('apiKeyInput').value.trim();
-            if (!apiKey) {
-                alert('Sila masukkan Groq API Key anda.');
-                return;
-            }
-
-            const selectedModel = document.getElementById('modelSelect').value;
-            const temp = parseFloat(document.getElementById('temp').value);
-
-            if (isNaN(temp) || temp < 0 || temp > 1) {
-            alert('Sila masukkan nilai temperature antara 0.1 hingga 1.0.');
-            return;
-            }
-
-            const sections = [
-                { id: 'teksAsal', prefix: 'Teks asal: ' },
-                { id: 'terjemahanA', prefix: 'Terjemahan A: ' },
-                { id: 'terjemahanB', prefix: 'Terjemahan B: ' },
-                { id: 'terjemahanC', prefix: 'Terjemahan C: ' }
-            ];
-
-            let userInputs = '';
-            sections.forEach(section => {
-                const content = document.getElementById(section.id).value.trim();
-                if (content) {
-                    userInputs += `${section.prefix}${content}\n`;
-                }
-            });
-
-            if (!userInputs) {
-                alert('Sila isi teks asal dan terjemahan-terjemahan.');
-                return;
-            }
-
-            const loadingDiv = document.getElementById('loading');
-            const finalStoryDiv = document.getElementById('finalStory');
-            loadingDiv.style.display = 'block';
-            finalStoryDiv.innerHTML = '';
-
-            const prompt = `<objective>
-Evaluate three translation outputs against the original text based on the considerations listed below. Assign a score from 1 to 5 for each translation, with 5 being the best. Then, select the best translation overall and identify the issues present in each translation.
-
-Considerations ordered from most important to least important:
-
-* Faithfulness to Original Meaning
-* Fluency in Target Language
-* Cultural and Contextual Appropriateness
-* Presentation (e.g., grammar, syntax, punctuation)
-
-Scoring Criteria:
-
-* 5: Excellent—The translation fully meets the criterion with no significant issues.
-* 4: Good—The translation meets the criterion well, with only minor issues.
-* 3: Adequate—The translation meets the criterion adequately, with some noticeable issues.
-* 2: Poor—The translation has significant issues and only partially meets the criterion.
-* 1: Very Poor—The translation fails to meet the criterion and has major issues.
-
-Notes:
-
-* When evaluating the translations, apply the considerations in their order of importance to determine the best one.
-* It is possible that none of the translations are perfect. However, you must still choose the best overall and assign a score to each.
-</objective>
-
-<steps>
-Step 1: Fahami Teks Asal
-* Mula dengan membaca teks asal yang disediakan dengan teliti.
-* Ambil perhatian terhadap perkara-perkara utama, nada, dan nuansa dalam teks asal, kerana ini akan membimbing penilaian anda terhadap terjemahan-terjemahan tersebut.
-
-Step 2: Kenali Terjemahan
-* Anda akan menerima tiga terjemahan yang berbeza dari teks asal.
-* Baca setiap terjemahan dengan teliti. Pertimbangkan untuk mencatat atau menggariskan bahagian-bahagian yang kelihatan paling tepat atau bermasalah dalam menangkap inti pati teks asal.
-
-Step 3: Nilai dan Beri Skor kepada Setiap Terjemahan
-* Nilai setiap terjemahan berdasarkan kriteria berikut:
-  - **Ketepatan Maksud Asal**: Sejauh mana terjemahan tersebut menyampaikan maksud, nada, dan niat teks asal dengan tepat?
-  - **Kelancaran dalam Bahasa Sasaran**: Sejauh mana terjemahan tersebut dibaca dengan lancar dalam bahasa sasaran?
-  - **Kesesuaian Budaya dan Konteks**: Adakah terjemahan tersebut sesuai dengan norma budaya dan konteks sasaran?
-  - **Persembahan**: Pertimbangkan tatabahasa, sintaksis, tanda baca, dan kebolehbacaan keseluruhan.
-
-* Beri skor dari 1 hingga 5 untuk setiap kriteria, kemudian jumlahkan skor keseluruhan untuk setiap terjemahan.
-
-Step 4: Pilih Terjemahan Terbaik
-* Setelah menilai, pilih terjemahan dengan skor keseluruhan tertinggi. Jika dua atau lebih terjemahan mempunyai skor yang sama, pilih berdasarkan kriteria yang paling penting.
-
-Step 5: Berikan Justifikasi untuk Pemilihan Anda
-* Berikan penjelasan ringkas tentang mengapa anda memilih terjemahan tersebut.
-
-Step 6: Kenal pasti Isu bagi Setiap Terjemahan
-* Pilih HANYA dari kategori isu yang disenaraikan di bawah:
-
-** Ketepatan Maksud Asal
-** Kelancaran dalam Bahasa Sasaran
-** Keserasian Budaya dan Konteks
-** Persembahan (cth: tatabahasa, sintaksis, tanda baca)
-** Tiada
-</steps>
-
-<user inputs>
-${userInputs}
-</user inputs>
-
-<scoring template>
-<h1>Penilaian Terjemahan</h1>
-
-    <h2>Terjemahan A:</h2>
-    <ul>
-        <li>Ketepatan Maksud Asal: [1-5]</li>
-        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
-        <li>Keserasian Budaya dan Konteks: [1-5]</li>
-        <li>Persembahan: [1-5]</li>
-        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
-    </ul>
-
-    <h2>Terjemahan B:</h2>
-    <ul>
-        <li>Ketepatan Maksud Asal: [1-5]</li>
-        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
-        <li>Keserasian Budaya dan Konteks: [1-5]</li>
-        <li>Persembahan: [1-5]</li>
-        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
-    </ul>
-
-    <h2>Terjemahan C:</h2>
-    <ul>
-        <li>Ketepatan Maksud Asal: [1-5]</li>
-        <li>Kelancaran dalam Bahasa Sasaran: [1-5]</li>
-        <li>Keserasian Budaya dan Konteks: [1-5]</li>
-        <li>Persembahan: [1-5]</li>
-        <li><strong>Skor Keseluruhan: [Jumlah skor]</strong></li>
-    </ul>
-
-    <h2>Perbincangan isu-isu:</h2>
-    <ul>
-        (Make further comments and notes in this section regarding issues among these translations)
-    </ul>
-</scoring template>`;
-            try {
-                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        messages: [
-                            {
-                                role: "user",
-                                content: prompt
-                            }
-                        ],
-                        model: selectedModel,
-                        temperature: temp,
-                        max_tokens: 1024,
-                        top_p: 1,
-                        stream: true,
-                        stop: null
-                    })
-                });
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let story = '';
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    
-                    const chunk = decoder.decode(value);
-                    const lines = chunk.split('\n');
-                    
-                    for (const line of lines) {
-                        if (line.startsWith('data:')) {
-                            try {
-                                const data = JSON.parse(line.slice(5));
-                                if (data.choices && data.choices[0].delta.content) {
-                                    story += data.choices[0].delta.content;
-                                    finalStoryDiv.innerHTML = `<h2>🌟 Keputusan Penilaian Terjemahan 🌟</h2><p>${story}</p>`;
-                                }
-                            } catch (e) {
-                                console.error('Error parsing JSON:', e);
-                            }
-                        }
-                    }
-                }
-
-                loadingDiv.style.display = 'none';
-            } catch (error) {
-                console.error('Error:', error);
-                loadingDiv.style.display = 'none';
-                finalStoryDiv.innerHTML = `<h2>Error</h2><p>An error occurred while generating the story. Please try again.</p>`;
-            }
-        }
+    <!-- START Formbricks Surveys -->
+    <script type="text/javascript">
+        !function () {
+            var apiHost = "https://survey.tapirapi.com";
+            var environmentId = "clzwxuf1g0014pqu4ix0w66fr";
+            var t = document.createElement("script"); t.type = "text/javascript", t.async = !0, t.src = apiHost + "/api/packages/website"; var e = document.getElementsByTagName("script")[0]; e.parentNode.insertBefore(t, e), setTimeout(function () { window.formbricks.init({ environmentId: environmentId, apiHost: apiHost }) }, 500)
+        }();
     </script>
+    <!-- END Formbricks Surveys -->
+</head>
+
+<body>
+   
 </body>
+
 </html>
