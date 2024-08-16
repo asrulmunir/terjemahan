@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Form</title>
+    <title>Survey Form (Debug Version)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,12 @@
         #survey-container {
             margin-top: 20px;
         }
+        #debug-log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -35,10 +41,21 @@
         <div id="survey-container">
             <!-- The survey will be rendered here by Formbricks -->
         </div>
+        <div id="debug-log">
+            <h3>Debug Log:</h3>
+            <pre id="log"></pre>
+        </div>
     </div>
 
     <!-- START Formbricks Surveys -->
     <script type="text/javascript">
+        function log(message) {
+            console.log(message);
+            document.getElementById('log').textContent += message + '\n';
+        }
+
+        log('Starting Formbricks script load...');
+
         !(function () {
             var t = document.createElement("script");
             t.type = "text/javascript";
@@ -48,13 +65,32 @@
             e.parentNode.insertBefore(t, e);
 
             t.onload = function() {
+                log('Formbricks script loaded successfully.');
                 window.formbricks = window.formbricks || window.js;
-                window.formbricks.init({
-                    environmentId: "clzwxuf1g0014pqu4ix0w66fr",
-                    apiHost: "https://survey.tapirapi.com",
-                });
+                if (window.formbricks) {
+                    log('window.formbricks object exists.');
+                    try {
+                        window.formbricks.init({
+                            environmentId: "clzwxuf1g0014pqu4ix0w66fr",
+                            apiHost: "https://survey.tapirapi.com",
+                        });
+                        log('Formbricks initialized successfully.');
+                    } catch (error) {
+                        log('Error initializing Formbricks: ' + error.message);
+                    }
+                } else {
+                    log('Error: window.formbricks object not found.');
+                }
+            };
+
+            t.onerror = function() {
+                log('Error loading Formbricks script.');
             };
         })();
+
+        window.onerror = function(message, source, lineno, colno, error) {
+            log('Global error: ' + message);
+        };
     </script>
     <!-- END Formbricks Surveys -->
 </body>
