@@ -1,20 +1,61 @@
-<!-- START Formbricks Surveys -->
-<script type="text/javascript">
-  !(function () {
-    var t = document.createElement("script");
-    t.type = "text/javascript";
-    t.async = !0;
-    t.src = "https://unpkg.com/@formbricks/js@^1.0.0/dist/index.umd.js";
-    var e = document.getElementsByTagName("script")[0];
-    e.parentNode.insertBefore(t, e);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        #survey-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <div id="survey-container">
+            <!-- The survey will be rendered here by Formbricks -->
+        </div>
+    </div>
 
-    t.onload = function() {
-      window.formbricks = window.formbricks || window.js;
-      window.formbricks.init({
-        environmentId: "clzwxuf1g0014pqu4ix0w66fr",
-        apiHost: "https://survey.tapirapi.com",
-      });
-    };
-  })();
-</script>
-<!-- END Formbricks Surveys -->
+    <!-- START Formbricks Surveys -->
+    <script type="text/javascript">
+        !(function () {
+            var t = document.createElement("script");
+            t.type = "text/javascript";
+            t.async = !0;
+            t.src = "https://unpkg.com/@formbricks/js@^1.0.0/dist/index.umd.js";
+            var e = document.getElementsByTagName("script")[0];
+            e.parentNode.insertBefore(t, e);
+
+            t.onload = function() {
+                window.formbricks = window.formbricks || window.js;
+                window.formbricks.init({
+                    environmentId: "clzwxuf1g0014pqu4ix0w66fr",
+                    apiHost: "https://survey.tapirapi.com",
+                });
+            };
+        })();
+    </script>
+    <!-- END Formbricks Surveys -->
+</body>
+</html>
